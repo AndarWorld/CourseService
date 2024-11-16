@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    
+    <changeSet id="1" author="Adrian">
+        <createTable tableName="courses">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="university_uuid" type="uuid">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="specialty_code" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="course_name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar"/>
+            <column name="period_from" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="period_to" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="courses"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2" author="Adrian">
+        <insert tableName="courses">
+            <column name="university_uuid" value="d6f6d65a-5a47-40ad-8482-4facb032491f"/>
+            <column name="specialty_code" value="40.03.01"/>
+            <column name="course_name" value="Юриспруденция-2022"/>
+            <column name="description" value="Поток юристов"/>
+            <column name="period_from" value="2022-09-01"/>
+            <column name="period_to" value="2026-09-01"/>
+        </insert>
+        <insert tableName="courses">
+            <column name="university_uuid" value="d80c727f-edc1-48fd-a5e4-1eb0722d7e22"/>
+            <column name="specialty_code" value="09.01.02"/>
+            <column name="course_name" value="Наладчик компьютерных сетей-2022"/>
+            <column name="description" value="Поток сетевиков"/>
+            <column name="period_from" value="2022-09-01"/>
+            <column name="period_to" value="2026-09-01"/>
+        </insert>
+        <insert tableName="courses">
+            <column name="university_uuid" value="f90c1262-4c67-46cf-bda7-0e2cd8209456"/>
+            <column name="specialty_code" value="11.01.05"/>
+            <column name="course_name" value="Монтажник связей-2022"/>
+            <column name="description" value="Поток мотнажников"/>
+            <column name="period_from" value="2022-09-01"/>
+            <column name="period_to" value="2026-09-01"/>
+        </insert>
+        <insert tableName="courses">
+            <column name="university_uuid" value="0d546bba-2a09-4951-8e05-65e44a9f9314"/>
+            <column name="specialty_code" value="15.00.00"/>
+            <column name="course_name" value="Машиностроение-2022"/>
+            <column name="description" value="Поток машиностроителей"/>
+            <column name="period_from" value="2022-09-01"/>
+            <column name="period_to" value="2026-09-01"/>
+        </insert>
+        <rollback>
+            <delete tableName="courses">
+                <where>course_name='Юриспруденция-2022'</where>
+            </delete>
+            <delete tableName="courses">
+                <where>course_name='Наладчик компьютерных сетей-2022'</where>
+            </delete>
+            <delete tableName="courses">
+                <where>course_name='Монтажник связей-2022'</where>
+            </delete>
+            <delete tableName="courses">
+                <where>course_name='Машиностроение-2022'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+
+</databaseChangeLog>
