@@ -1,6 +1,6 @@
 spring:
   application:
-    name: CourseService
+    name: Course-Service
   datasource:
     url: ${DB_PASSWORD}
     username: ${DB_USERNAME}
