@@ -1,6 +1,7 @@
 package org.andarworld.courseservice.usecases.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.andarworld.courseservice.api.exception.CoursesNotFoundException;
 import org.andarworld.courseservice.persistence.model.Course;
 import org.andarworld.courseservice.persistence.repository.CourseRepository;
 import org.andarworld.courseservice.usecases.CourseService;
@@ -28,7 +29,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<CourseResponseDto> getCoursesByUniversityUuid(String uuid) {
-        return mapList(courseRepository.findAllByUniversityUuid(UUID.fromString(uuid)));
+        return mapList(courseRepository.findAllByUniversityUuid(UUID.fromString(uuid))
+                .orElseThrow(() -> new CoursesNotFoundException("Course not found!")));
     }
 
     private List<CourseResponseDto> mapList(List<Course> courses) {
