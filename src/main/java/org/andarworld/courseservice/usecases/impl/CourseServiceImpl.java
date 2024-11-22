@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +28,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<CourseResponseDto> getCoursesByUniversityUuid(String uuid) {
-        return mapList(courseRepository.findAllByUniversityUuid(uuid));
+        return mapList(courseRepository.findAllByUniversityUuid(UUID.fromString(uuid)));
     }
 
     private List<CourseResponseDto> mapList(List<Course> courses) {

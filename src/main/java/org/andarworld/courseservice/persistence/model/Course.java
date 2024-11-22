@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "courses")
@@ -20,7 +21,7 @@ public class Course {
     private Long id;
 
     @Column
-    private String universityUuid;
+    private UUID universityUuid;
 
     @Column
     private String specialtyCode;
