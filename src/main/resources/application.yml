@@ -3,16 +3,20 @@ server:
 
 spring:
   application:
-    name: Course-Service
+    name: COURSE-SERVICE
   datasource:
     url: ${DB_PASSWORD}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   liquibase:
     change-log: db/changelog/changelog.xml
-  jpa:
-    hibernate:
-      ddl-auto: none
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_JWK_URI}
+          issuer-uri: ${KEYCLOAK_ISSUER_URI}
+
 
 eureka:
   client:

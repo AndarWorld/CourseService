@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.andarworld.courseservice.usecases.CourseService;
 import org.andarworld.courseservice.usecases.dto.CourseResponseDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,5 +26,11 @@ public class CourseApiController {
         log.debug("Getting all courses");
         List<CourseResponseDto> courses = courseService.getCoursesByUniversityUuid(uuid);
         return ResponseEntity.ok(courses);
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> getAllCoursesAdmin() {
+        return ResponseEntity.ok("Hi from courses admin!");
     }
 }
