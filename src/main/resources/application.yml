@@ -2,6 +2,8 @@ server:
   port: ${SERVER_PORT:0}
 
 spring:
+  profiles:
+    active: ${PROFILES:default}
   application:
     name: COURSE-SERVICE
   datasource:
@@ -10,20 +12,5 @@ spring:
     password: ${DB_PASSWORD}
   liquibase:
     change-log: db/changelog/changelog.xml
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: ${KEYCLOAK_JWK_URI}
-          issuer-uri: ${KEYCLOAK_ISSUER_URI}
-
-
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL}
-
-logging:
-  level:
-    root: info
-    org.andarworld.courseservice: debug
+  config:
+    import: configserver:http://localhost:8787

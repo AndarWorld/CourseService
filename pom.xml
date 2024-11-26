@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.andarworld</groupId>
-    <artifactId>сourseService</artifactId>
+    <artifactId>CourseService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>courseService</name>
     <description>CourseService</description>
@@ -102,6 +102,10 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
     </dependencies>
     <dependencyManagement>
