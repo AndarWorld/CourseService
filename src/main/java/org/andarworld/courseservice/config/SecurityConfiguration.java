@@ -1,4 +1,4 @@
-package org.andarworld.courseservice.security;
+package org.andarworld.courseservice.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -28,10 +26,10 @@ import java.util.stream.Collectors;
 @Slf4j
 @RefreshScope
 public class SecurityConfiguration {
-    @Value("${spring.main.oauth2.resourceserver.jwt.jwk-set-uri}")
+    @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
     private String ISSUER_JWK;
 
-    @Value("${spring.main.oauth2.resourceserver.jwt.issuer-uri}")
+    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String ISSUER_URI;
 
     @Bean
@@ -42,8 +40,7 @@ public class SecurityConfiguration {
                         request.anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(jwt ->
-                                jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
-                                        .decoder(jwtDecoder())))
+                                jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .build();
     }
 
@@ -65,13 +62,9 @@ public class SecurityConfiguration {
             log.debug("Inserting jwt with empty roles");
             return Collections.emptyList();
         }
+        log.debug("Getting key-set from  {}  ", ISSUER_JWK);
         return map.get("roles").stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-    }
-
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withJwkSetUri(ISSUER_JWK).build();
     }
 }
